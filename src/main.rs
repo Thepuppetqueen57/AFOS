@@ -71,6 +71,7 @@ async fn main() {
         if cmd == "help" {
             println!("1: exit");
             println!("2: version");
+            println!("3: run program");
         }
 
         else if cmd == "exit" {
@@ -81,7 +82,11 @@ async fn main() {
             println!("Getting data...");
 
             if tor_running {
-                _latest_version = make_request(format!("{}get_latest_version.php", tor_link)).await;
+                if _latest_version == "" {
+                    _latest_version = make_request(format!("{}get_latest_version.php", tor_link)).await;
+                } else {
+                    sleep(Duration::from_millis(1000));
+                }
                 println!("Installed Version: {}", version);
                 println!("Latest Version: {}", _latest_version);
             } else {
