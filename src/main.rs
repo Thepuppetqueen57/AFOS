@@ -4,7 +4,6 @@ use std::io::Write;
 use std::io;
 
 use reqwest::Client;
-use tokio::net::TcpStream;
 
 async fn make_request(url: String) -> String {
     let client = Client::builder()
