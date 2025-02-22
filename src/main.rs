@@ -63,7 +63,7 @@ async fn main() {
             if _latest_version == "" {
                 _latest_version = make_request(format!("{}get_latest_version.php", main_link)).await;
             } else {
-                sleep(Duration::from_millis(1000));
+                sleep(Duration::from_millis(300));
             }
             println!("Installed Version: {}", version);
             println!("Latest Version: {}", _latest_version);
