@@ -8,6 +8,22 @@ use reqwest::Client;
 
 use mlua::Lua;
 
+macro_rules! hashmap {
+    ( $( $x:expr => $x1:expr ),* ) => {
+        {
+            let mut _temp_hashmap = HashMap::new();
+            $(
+                _temp_hashmap.insert($x, $x1);
+            )*
+            _temp_hashmap
+        }
+    };
+
+    () => {
+        HashMap::new()
+    }
+}
+
 async fn make_request(url: String, params: Option<HashMap<String, String>>) -> String {
     let client = Client::builder()
         .build()
@@ -44,6 +60,7 @@ async fn main() {
     let mut _latest_version: String = Default::default();
     let main_link: String = "http://puppet57.xyz/afos/php/".to_string();
     let mut program_to_run: String = Default::default();
+    let mut program_to_install: String = Default::default();
     sleep(Duration::from_millis(500));
     println!("Loading kernel...");
     sleep(Duration::from_millis(500));
@@ -93,6 +110,26 @@ async fn main() {
                 .expect("Failed to load lua code. Does the program exist?");
 
             run_lua(format!("{}", lua_code));
+        }
+
+        else if cmd == "install program" {
+            print!("Program to install: ");
+            io::stdout().flush().unwrap();
+            let _ = stdin().read_line(&mut program_to_install).unwrap();
+            program_to_install = program_to_install.trim().to_string();
+
+            let parameters: HashMap<String, String> = hashmap! {
+                "program".to_string() => program_to_install.clone()
+            };
+
+            let program_file = make_request(
+                format!("{}get_program.php", main_link),
+                Some(parameters)
+            ).await;
+
+            let _ = std::fs::write(format!("./programs/{}.lua", program_to_install), program_file);
+
+            println!("Program {} has been installed!", program_to_install);
         }
 
         else {
