@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::{thread::sleep, time::Duration};
 use std::io::stdin;
 use std::io::Write;
@@ -7,13 +8,18 @@ use reqwest::Client;
 
 use mlua::Lua;
 
-async fn make_request(url: String) -> String {
+async fn make_request(url: String, params: Option<HashMap<String, String>>) -> String {
     let client = Client::builder()
         .build()
         .expect("Failed to build client");
 
-    let res = client
-        .get(url)
+    let mut request = client.get(url);
+
+    if let Some(p) = params {
+        request = request.query(&p);
+    }
+
+    let res = request
         .send()
         .await
         .expect("Failed to send request");
@@ -69,7 +75,7 @@ async fn main() {
         else if cmd == "version" {
             println!("Getting data...");
             if _latest_version == "" {
-                _latest_version = make_request(format!("{}get_latest_version.php", main_link)).await;
+                _latest_version = make_request(format!("{}get_latest_version.php", main_link), None).await;
             } else {
                 sleep(Duration::from_millis(300));
             }
