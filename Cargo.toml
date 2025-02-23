@@ -5,5 +5,6 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
+mlua = { version = "0.9", features = ["lua54", "vendored"] }
 reqwest = { version = "0.12.12", features = ["socks"] }
 tokio = { version = "1", features = ["full"] }
