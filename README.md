@@ -7,3 +7,6 @@
 
 # Does this count as a fake os
  Not sure. Imo it does cuz if you fullscreened it then it would feel like an os (kinda)
+
+# Socials
+ Discord: https://discord.gg/FauFW7sreS
