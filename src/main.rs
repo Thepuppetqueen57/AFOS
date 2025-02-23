@@ -83,6 +83,7 @@ async fn main() {
             println!("1: exit");
             println!("2: version");
             println!("3: run program");
+            println!("4: install program");
         }
 
         else if cmd == "exit" {
