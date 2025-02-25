@@ -58,7 +58,7 @@ async fn main() {
     let mut cmd: String = Default::default();
     let version: String = "ALPHA".to_string();
     let mut _latest_version: String = Default::default();
-    let main_link: String = "http://puppet57.xyz/afos/php/".to_string();
+    let main_link: String = "http://afos.puppet57.xyz/php/".to_string();
     let mut program_to_run: String = Default::default();
     let mut program_to_install: String = Default::default();
     sleep(Duration::from_millis(500));
