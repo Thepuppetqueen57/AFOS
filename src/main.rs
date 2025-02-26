@@ -81,8 +81,11 @@ async fn main() {
 
         if cmd == "help" {
             println!("1: exit");
+            sleep(Duration::from_millis(100));
             println!("2: version");
+            sleep(Duration::from_millis(100));
             println!("3: run program");
+            sleep(Duration::from_millis(100));
             println!("4: install program");
         }
 
